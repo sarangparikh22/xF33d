@@ -21,6 +21,22 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
         chainId = _chainId;
     }
 
+    event SentUpdatedRate(
+        uint16 _chainId,
+        address _feed,
+        bytes _feedData,
+        bytes _payload
+    );
+    event FeedDeployed(
+        uint16 _chainId,
+        address _feed,
+        bytes _feedData,
+        address receiver
+    );
+    event FeedActivated(bytes32 _feedId, address _receiver);
+    event SetRemoteSrcAddress(uint16 _chainId, address _remoteSrcAddress);
+    event SetProtectedFeeds(uint16 _chainId, address _feed);
+
     function sendUpdatedRate(
         uint16 _chainId,
         address _feed,
@@ -40,6 +56,8 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
             address(0),
             bytes("")
         );
+
+        emit SentUpdatedRate(_chainId, _feed, _feedData, _payload);
     }
 
     function deployFeed(
@@ -82,6 +100,8 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
             bytes("")
         );
 
+        emit FeedDeployed(_chainId, _feed, _feedData, receiver);
+
         return receiver;
     }
 
@@ -101,7 +121,10 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
             _payload,
             (bytes32, address)
         );
+
         activatedFeeds[_feedId] = _receiver;
+
+        emit FeedActivated(_feedId, _receiver);
     }
 
     function setRemoteSrcAddress(
@@ -109,6 +132,7 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
         address _remoteSrcAddress
     ) external onlyOwner {
         remoteSrcAddress[_chainId] = _remoteSrcAddress;
+        emit SetRemoteSrcAddress(_chainId, _remoteSrcAddress);
     }
 
     function setProtectedFeeds(
@@ -117,5 +141,6 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
         bytes calldata _bytecode
     ) external onlyOwner {
         protectedFeeds[keccak256(abi.encode(_chainId, _feed))] = _bytecode;
+        emit SetProtectedFeeds(_chainId, _feed);
     }
 }

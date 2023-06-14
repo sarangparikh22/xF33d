@@ -11,6 +11,8 @@ contract xF33dReceiver is ILayerZeroReceiver {
     bytes public oracleData;
     uint32 public lastUpdated;
 
+    event FeedUpdated(uint32 lastUpdated);
+
     function init(address _endpoint, address _srcAddress) public {
         lzEndpoint = ILayerZeroEndpoint(_endpoint);
         srcAddress = _srcAddress;
@@ -31,5 +33,7 @@ contract xF33dReceiver is ILayerZeroReceiver {
 
         oracleData = _payload;
         lastUpdated = uint32(block.timestamp);
+
+        emit FeedUpdated(lastUpdated);
     }
 }
