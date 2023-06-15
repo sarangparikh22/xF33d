@@ -36,6 +36,7 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
     event FeedActivated(bytes32 _feedId, address _receiver);
     event SetRemoteSrcAddress(uint16 _chainId, address _remoteSrcAddress);
     event SetProtectedFeeds(uint16 _chainId, address _feed);
+    event SetLzEndpoint(address _lzEndpoint);
 
     function sendUpdatedRate(
         uint16 _chainId,
@@ -142,5 +143,42 @@ contract xF33dSender is Ownable2Step, ILayerZeroReceiver {
     ) external onlyOwner {
         protectedFeeds[keccak256(abi.encode(_chainId, _feed))] = _bytecode;
         emit SetProtectedFeeds(_chainId, _feed);
+    }
+
+    function setLzEndpoint(address _lzEndpoint) external onlyOwner {
+        lzEndpoint = ILayerZeroEndpoint(_lzEndpoint);
+        emit SetLzEndpoint(_lzEndpoint);
+    }
+
+    function getFeesForRateUpdate(
+        uint16 _chainId,
+        address _feed,
+        bytes calldata _feedData
+    ) external view returns (uint256 fees) {
+        bytes memory _payload = IxF33dAdapter(_feed).getLatestData(_feedData);
+        (fees, ) = lzEndpoint.estimateFees(
+            _chainId,
+            address(this),
+            _payload,
+            false,
+            bytes("")
+        );
+    }
+
+    function getFeesForDeployFeed(
+        uint16 _chainId,
+        address _feed,
+        bytes calldata _feedData
+    ) external view returns (uint256 fees) {
+        (fees, ) = lzEndpoint.estimateFees(
+            _chainId,
+            address(this),
+            abi.encode(
+                keccak256(abi.encode(chainId, _feed, _feedData)),
+                address(0)
+            ),
+            false,
+            bytes("")
+        );
     }
 }
