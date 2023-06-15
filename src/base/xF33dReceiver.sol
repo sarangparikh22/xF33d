@@ -4,6 +4,10 @@ pragma solidity 0.8.13;
 import {ILayerZeroEndpoint} from "solidity-examples/interfaces/ILayerZeroEndpoint.sol";
 import {ILayerZeroReceiver} from "solidity-examples/interfaces/ILayerZeroReceiver.sol";
 
+/**
+ * @title xF33dReceiver
+ * @dev This contract receives messages from LayerZero and updates the oracleData and lastUpdated variables.
+ */
 contract xF33dReceiver is ILayerZeroReceiver {
     ILayerZeroEndpoint public lzEndpoint;
     address public srcAddress;
