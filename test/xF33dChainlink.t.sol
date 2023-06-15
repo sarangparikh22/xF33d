@@ -94,5 +94,44 @@ contract xF33dChainlinkTest is Test {
         assert(answeredInRound == _answeredInRound);
     }
 
+    function testProtectedFeeds() external {
+        chain2Sender.setProtectedFeeds(
+            CHAIN_ID_1,
+            address(chainlinkAdapter),
+            type(xF33dReceiverChainlink).creationCode
+        );
+
+        address receiver = chain2Sender.deployFeed{value: 1 ether}(
+            CHAIN_ID_1,
+            address(chainlinkAdapter),
+            abi.encode(ethPriceFeed),
+            bytes("")
+        );
+
+        assert(xF33dReceiverChainlink(receiver).lzEndpoint() == dstEndpoint);
+
+        srcEndpoint.setDestLzEndpoint(address(receiver), address(dstEndpoint));
+
+        chain1Sender.sendUpdatedRate{value: 1 ether}(
+            CHAIN_ID_2,
+            address(chainlinkAdapter),
+            abi.encode(ethPriceFeed)
+        );
+
+        (
+            uint80 _roundId,
+            int _price,
+            uint256 _startedAt,
+            uint256 _timestamp,
+            uint80 _answeredInRound
+        ) = xF33dReceiverChainlink(receiver).latestRoundData();
+
+        assert(roundId == _roundId);
+        assert(price == _price);
+        assert(startedAt == _startedAt);
+        assert(timestamp == _timestamp);
+        assert(answeredInRound == _answeredInRound);
+    }
+
     receive() external payable {}
 }
