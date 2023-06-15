@@ -16,10 +16,12 @@ You can use this with any oracle or any feed transfer cross chain, chainlink is 
 
 ## Deployments
 
-Arbitrum xF33dSender - https://arbiscan.io/address/0x2bF0de538aaB4625D86bFdf3542C9497CcF0fcD5
+Arbitrum xF33dSender - https://arbiscan.io/address/0x2bF0de538aaB4625D86bFdf3542C9497CcF0fcD5 
+
 Arbitrum Chainlink Adapter - https://arbiscan.io/address/0x39e90a808da5191eeb44744bc897af8edb65e3fc
 
 Arbitrum Nova xF33dSender - https://nova.arbiscan.io/address/0x0dd184bec9e43701f76d75d5fffe246b2dc8d4ea
+
 Arbitrum Nova xF33dReceiverChainlink (ETH/USD)- https://nova.arbiscan.io/address/0x76778dab0570adcc56dea21f1e096eec6af1d14d#readContract
 
 Update Transaction on LayerZero Scan - https://layerzeroscan.com/110/address/0x2bf0de538aab4625d86bfdf3542c9497ccf0fcd5/message/175/address/0x76778dab0570adcc56dea21f1e096eec6af1d14d/nonce/1
