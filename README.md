@@ -26,6 +26,19 @@ Arbitrum Nova xF33dReceiverChainlink (ETH/USD)- https://nova.arbiscan.io/address
 
 Update Transaction on LayerZero Scan - https://layerzeroscan.com/110/address/0x2bf0de538aab4625d86bfdf3542c9497ccf0fcd5/message/175/address/0x76778dab0570adcc56dea21f1e096eec6af1d14d/nonce/1
 
+
+Goerli xF33dSender - https://goerli.etherscan.io/address/0xb246e0f9be42d9f0e21161860af1aefac3dad000
+
+Goerli Chainlink Adapter - https://goerli.etherscan.io/address/0xB547094c5B7df9c60e8eDF52d5194203b31Ba38C
+
+Linea Testnet xF33dSender - https://goerli.lineascan.build/address/0x3c315c61eaca0821f518d432541c1eff08752295
+
+Linea xF33dReceiverChainlink (ETH/USD) - https://goerli.lineascan.build/address/0x33e87b12b4694de88d8d2e033a3cad1f532db2fb#readContract
+
+Update Transaction on LayerZero Scan - https://testnet.layerzeroscan.com/10121/address/0xb246e0f9be42d9f0e21161860af1aefac3dad000/message/10157/address/0x33e87b12b4694de88d8d2e033a3cad1f532db2fb/nonce/1
+
+
+
 ## Test Transactions
 
 Arbitrum Nova Deploy Feed Transaction - https://nova.arbiscan.io/tx/0x27e1ff7f882a13f7f2c1e9c5bcdec0c6fe757c538fa86c1fbb8f5dd564bba030
