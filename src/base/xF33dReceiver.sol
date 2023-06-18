@@ -15,11 +15,19 @@ contract xF33dReceiver is ILayerZeroReceiver {
     bytes public oracleData;
     uint32 public lastUpdated;
 
+    bool private initialized;
+
     event FeedUpdated(uint32 lastUpdated);
 
-    function init(address _endpoint, address _srcAddress) public {
+    modifier isInitialized() {
+        require(initialized != true, "already init");
+        _;
+    }
+
+    function init(address _endpoint, address _srcAddress) public isInitialized {
         lzEndpoint = ILayerZeroEndpoint(_endpoint);
         srcAddress = _srcAddress;
+        initialized = true;
     }
 
     function lzReceive(
